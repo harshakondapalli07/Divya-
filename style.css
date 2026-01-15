@@ -1,0 +1,270 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background image of her / anything you like */
+  background-image: url("bg.jpg"); /* put your image file name here */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #222;
+  position: relative;
+}
+
+/* soft white overlay over the background image for readability */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55); /* veil over image */
+  backdrop-filter: blur(3px);             /* slight blur if supported */
+  z-index: 0;
+}
+
+/* floating card */
+.container {
+  position: relative;
+  z-index: 1; /* above overlay */
+
+  background: #ffffff;
+  padding: 32px 28px;
+  border-radius: 18px;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  animation: floatCard 10s ease-in-out infinite alternate;
+}
+
+/* subtle aura behind card */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 182, 193, 0.22),
+    transparent 60%
+  );
+  opacity: 0.6;
+  mix-blend-mode: soft-light;
+  animation: slowGlow 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* optional avatar (profile picture) */
+
+
+body {
+  /* ...other styles... */
+  background-image: url("divyaa.jpeg");
+}
+
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 14px;
+  border: 3px solid rgba(255, 77, 109, 0.45);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.18),
+    0 0 0 4px rgba(255, 255, 255, 0.9);
+  animation: avatarFloat 6s ease-in-out infinite alternate;
+}
+
+/* heading glow pulse */
+h1 {
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 12px;
+  color: #ff4d6d;
+  letter-spacing: 0.04em;
+  animation: titleGlow 3.5s ease-in-out infinite;
+}
+
+#time,
+#remaining,
+#alive {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+/* wish text + subtle animated underline */
+#wish {
+  font-size: clamp(18px, 4.5vw, 22px);
+  line-height: 1.5;
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 6px;
+  animation: fade 0.6s ease-in-out;
+}
+
+#wish::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 77, 109, 0.7);
+  transform: translateX(-50%);
+  animation: underlineBlink 1.2s ease-in-out infinite;
+}
+
+/* ========== KEYFRAMES ========== */
+
+/* card gentle float */
+@keyframes fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* soft aura movement */
+@keyframes slowGlow {
+  from {
+    transform: translateY(10px);
+    opacity: 0.35;
+  }
+  to {
+    transform: translateY(-10px);
+    opacity: 0.9;
+  }
+}
+
+/* avatar subtle float */
+@keyframes avatarFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+/* heading glow pulse */
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 0 rgba(255, 77, 109, 0);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(255, 77, 109, 0.35),
+      0 0 20px rgba(255, 160, 190, 0.35);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(255, 77, 109, 0);
+  }
+}
+
+/* wish fade in (used when JS rewrites the wish) */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* counter pop for #alive (via .count-up class in JS) */
+.count-up {
+  animation: pop 0.4s ease-out;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.98);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* blinking underline under the wish */
+@keyframes underlineBlink {
+  0% {
+    opacity: 0.15;
+    width: 26px;
+  }
+  50% {
+    opacity: 0.9;
+    width: 46px;
+  }
+  100% {
+    opacity: 0.15;
+    width: 26px;
+  }
+}
+/* Floating Hearts */
+  /* ===== FIX: MAKE HEARTS VISIBLE ===== */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5; /* above overlay and card */
+}
+
+.hearts span {
+  position: absolute;
+  bottom: -20px;
+  font-size: 22px;
+  animation: floatUp linear infinite;
+  opacity: 0.85;
+}
+
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Timeline highlight */
+#timeline {
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* Birth moment message */
+#birthMoment {
+  font-weight: bold;
+  color: #ff4d6d;
+  margin-top: 12px;
+}
